@@ -41,3 +41,23 @@ function calculateTaxes(grossPay) {
     return grossPay - tax;
 }
 
+function processPayroll(employee) {
+    let basepay = calculateBasePay(employee.hourlyRate, employee.hoursWorked);
+    let overtimePay = calculateOvertimePay(employee.hourlyRate, employee.hoursWorked);
+    let grossPay = basepay + overtimePay;
+    let netPay = calculateTaxes(grossPay);
+
+    return {
+        name: employee.name,
+        basepay: basepay,
+        overtimePay: overtimePay,
+        grossPay: grossPay,
+        netPay: netPay
+    }
+}
+
+// Loop through employees and log payroll info
+for (let emp of employees) {
+  let payroll = processPayroll(emp);
+  console.log(`Payroll for ${emp.name}`, payroll);
+}
